@@ -71,7 +71,7 @@ def choosingFile(UI:bool, dir:str = "", extencions:list = []) -> "path to file":
             # here a dict of files is creates
             #
             # { 1: filename1
-            #    2: filename2
+            #   2: filename2
             #   3: filename3
             #   4: filename4
             # }
