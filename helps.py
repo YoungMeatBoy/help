@@ -7,7 +7,7 @@ class HelperException(Exception):
         self.txt = text
 
 
-def getValids(adds: str = "") -> str:
+def getValids(adds:str = "") -> str:
     """
     returns a string of valid letters
     """
@@ -28,7 +28,7 @@ def connectionCheck() -> bool:
         return False
 
 
-def choosingFile(UI: bool, dir: str = "", extencions: list = []) -> "path to file":
+def choosingFile(UI:bool, dir:str = "", extencions:list = []) -> "path to file":
     """  
             helps user to choose file from a directory
     """
