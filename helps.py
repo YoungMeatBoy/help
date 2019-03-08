@@ -1,3 +1,6 @@
+from random import uniform, randint
+import os
+
 class HelperException(Exception):
 
     def __init__(self, text=""):
@@ -5,13 +8,13 @@ class HelperException(Exception):
 
 
 def getValids(adds: str = "") -> str:
-	"""
-	returns a string of valid letters
-	"""
-	import string
+    """
+    returns a string of valid letters
+    """
+    import string
     Accept = adds + string.ascii_lowercase + \
             string.ascii_uppercase + "".join([str(x) for x in range(10)])
-
+    return Accept
 
 def connectionCheck() -> bool:
     """ 
@@ -46,14 +49,15 @@ def choosingFile(UI: bool, dir: str = "", extencions: list = []) -> "path to fil
         from glob2 import glob as find
         slash = os.sep  # slash according to a system
         dir = dir.rstrip("/").rstrip("\\") + slash
-        print("\nThe directory of searching: ", Dir)
-        dir = dir.rstrip("/").rstrip("\\") + slash + "*."  # here we create a glob pattern
-
+        print("\nThe directory of searching: ", dir)
+        dir = dir.rstrip("/").rstrip("\\") + slash + "*"  # here we create a glob pattern
+        print(dir)
         # take a list of files
         if not extencions:
             files = [file for file in find(dir) if not isdir(file)]
+            print(files)
         else:
-            files = sum([glob2.find(Dir + end)
+            files = sum([find(dir + "." + end)
                          for end in extencions], [])  # still list here
 
         if not files:
@@ -67,7 +71,7 @@ def choosingFile(UI: bool, dir: str = "", extencions: list = []) -> "path to fil
             # here a dict of files is creates
             #
             # { 1: filename1
-            #	2: filename2
+            #    2: filename2
             #   3: filename3
             #   4: filename4
             # }
@@ -89,39 +93,39 @@ def choosingFile(UI: bool, dir: str = "", extencions: list = []) -> "path to fil
 
 
 def EInput(Types:list=[], Amount:int=1, Funcs:list=[], Arguments=[], EndFunc=None, EArguments:list=[], ITexts:list=[], ETexts:list=[], EEText:str="", Adding:bool=True, STRIP:bool=False):
-	""" 
-	=========================================================
-	That function helps you to make an easy input for a User.
-	=========================================================
-	Parametres:
-		Types:
-			In Types parametr set a list of functions (types of elements) , you want User to input.
-			Note that you will have to make list in such way: [int]*5,
-			Than there will be 5 elements of integer
-		Amount:
-			In Amount set the amoun of elements you want User to input
-		Funcs:
-			In Funcs you have to set rhe list of functions for each element.
-			Note that you will have to put *args into your function.
-			It should return True or False or string "OUT" (Read Adding for an information)
-		Arguments:
-			The list of arguments which will be given to your "check" function
-		EncFunc:
-			One Function that will check the list of User's inputs
-			Note that yu will have to add *args   
-		EArguments:
-			The list of arguments which will be given to your " End function
-		IText:
-			The list of texts which will be shown to a Users
-		EText:
-			The list of texts which will be shown to a user if your check fucnction returns False
-		EEText:
-			The string which will be shown if your End function returns False
-		Adding:
-			If your Check function returns "OUT":
-				if Adding:
-			        The current input will be added to the list of answers
-		"""
+    """ 
+    =========================================================
+    That function helps you to make an easy input for a User.
+    =========================================================
+    Parametres:
+        Types:
+            In Types parametr set a list of functions (types of elements) , you want User to input.
+            Note that you will have to make list in such way: [int]*5,
+            Than there will be 5 elements of integer
+        Amount:
+            In Amount set the amoun of elements you want User to input
+        Funcs:
+            In Funcs you have to set rhe list of functions for each element.
+            Note that you will have to put *args into your function.
+            It should return True or False or string "OUT" (Read Adding for an information)
+        Arguments:
+            The list of arguments which will be given to your "check" function
+        EncFunc:
+            One Function that will check the list of User's inputs
+            Note that yu will have to add *args   
+        EArguments:
+            The list of arguments which will be given to your " End function
+        IText:
+            The list of texts which will be shown to a Users
+        EText:
+            The list of texts which will be shown to a user if your check fucnction returns False
+        EEText:
+            The string which will be shown if your End function returns False
+        Adding:
+            If your Check function returns "OUT":
+                if Adding:
+                    The current input will be added to the list of answers
+        """
     Answer = []
     while True:
         for _ in range(Amount):
@@ -167,10 +171,9 @@ def EInput(Types:list=[], Amount:int=1, Funcs:list=[], Arguments=[], EndFunc=Non
 
 
 def generateMatrix(Auto:bool=True, Size:tuple=(10, 10), Typ:str="int", Zeros:bool=False, Span:tuple=(-100, 100)) -> list:
-	"""
-	Automatically or manualy generates matrix of given size and span and type
-	"""
-	from random import *
+    """
+    Automatically or manualy generates matrix of given size and span and type
+    """
 
     if Auto:
         if Zeros:
@@ -188,13 +191,13 @@ def generateMatrix(Auto:bool=True, Size:tuple=(10, 10), Typ:str="int", Zeros:boo
         elif Typ == "float":
             return [[float(input("Enter value: ")) for i in range(Size[0])] for i in range(Size[1])]
         else:
-        	raise HelperException("No type was given!")
+            raise HelperException("No type was given!")
 
 
-def GoodOut(object, *kwargs) -> None:
-	"""
-	An easy output of a matrix or a dict
-	"""
+def goodOut(object) -> None:
+    """
+    An easy output of a matrix or a dict
+    """
     if type(object) is dict:
         flag = False
         for key in (object):
@@ -210,26 +213,26 @@ def GoodOut(object, *kwargs) -> None:
         print()
         for item in object:
             for chislo in item:
-                print(("{:>" + str(F) + "}").format(chislo), end=" ")
+                print(("{:>5}").format(chislo), end=" ")
             print()
     return
 
 
 def ask(text:str="yes/no?: ") -> bool:
-	"""
-	Yes or no?
-	"""
+    """
+    Yes or no?
+    """
     answer = input(text) 
     if not answer:
-    	return True # if enter was pressed
+        return True # if enter was pressed
     else:
-    	return "y" in answer.lower()
+        return "y" in answer.lower()
 
 
 def askPath(Dir:str=os.getcwd(), extencion:str=".txt") -> str:
-	"""
-	Ask for a new name of the file
-	"""
+    """
+    Ask for a new name of the file
+    """
     import os
     slash = os.sep
 
@@ -300,7 +303,7 @@ def unitest(func,right=None, wrong=None, dic=None):
        (dic == None or type(dic) is dict):
 
         if right:
-            s = 0				# Ключ к словарю
+            s = 0                # Ключ к словарю
             print("Происходит проверка правильных значений... \n")
             # Начинается проверка каждого значения с обработкой исключений
             for _, item in enumerate(right):
@@ -320,7 +323,7 @@ def unitest(func,right=None, wrong=None, dic=None):
 
         if wrong:
             # Начало проверки неверных значений
-            s = 0				# Обновляем ключ к словарю
+            s = 0                # Обновляем ключ к словарю
             print("Происходит проверка неверных значений...")
             for _, item in enumerate(wrong):
                 try:
@@ -337,7 +340,7 @@ def unitest(func,right=None, wrong=None, dic=None):
                     continue
         if dic:
             print("Начало проверки при помощи словаря... \n")
-            s = 0			   # Обновляем ключ к словарю
+            s = 0               # Обновляем ключ к словарю
             for item in dic:
                 try:
                     if func(item) == dic[item]:
