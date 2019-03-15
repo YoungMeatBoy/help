@@ -301,6 +301,7 @@ def unitest(func,right=None, wrong=None, dic=None):
        (right == None or type(right) is list) and\
        (wrong == None or type(wrong) is list) and\
        (dic == None or type(dic) is dict):
+        #if right is None or isinstance(right, list)?
 
         if right:
             s = 0                # Ключ к словарю
