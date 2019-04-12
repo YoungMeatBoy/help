@@ -199,6 +199,7 @@ def goodOut(object) -> None:
     An easy output of a matrix or a dict
     """
     if type(object) is dict:
+        print()
         flag = False
         for key in (object):
             if str(key) in "1234567890":
@@ -209,6 +210,7 @@ def goodOut(object) -> None:
         else:
             for ind, key in enumerate(object):
                 print(f"{str(ind + 1)} | {str(key)} : ", object[key])
+        print()
     elif type(object) is list:
         print()
         for item in object:
